@@ -66,7 +66,7 @@
 		</script>
 
 
-		<form role="form" action="submit/download">
+		<form role="form" action="submit/download" method="post">
 
 			<div class="form-group">
 				<label for="plist">Generated Plist:</label>

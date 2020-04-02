@@ -20,7 +20,7 @@ import com.jamfsoftware.research.macingestor.jaxb.ManagedAppConfiguration;
 @RequestMapping("/submit")
 public class SubmitServlet {
 
-	@RequestMapping(value = "/download", method = RequestMethod.GET, produces=MediaType.APPLICATION_OCTET_STREAM_VALUE)
+	@RequestMapping(value = "/download", method = RequestMethod.POST, produces=MediaType.APPLICATION_OCTET_STREAM_VALUE)
 	public String download(HttpServletRequest request, HttpServletResponse response) {
 		response.setContentType("application/force-download");
 		response.addHeader("Content-Disposition","attachment; filename=\"photosync_mdm.plist\"");
