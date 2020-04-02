@@ -23,7 +23,7 @@ public class SubmitServlet {
 	@RequestMapping(value = "/download", method = RequestMethod.GET, produces=MediaType.APPLICATION_OCTET_STREAM_VALUE)
 	public String download(HttpServletRequest request, HttpServletResponse response) {
 		response.setContentType("application/force-download");
-		response.addHeader("Content-Disposition","attachment; filename=\"mac.plist\"");
+		response.addHeader("Content-Disposition","attachment; filename=\"photosync_mdm.plist\"");
 		Reader reader = new StringReader(generatePlist(request));
 		try {
 			IOUtils.copy(reader, response.getOutputStream());
@@ -34,7 +34,7 @@ public class SubmitServlet {
 		return null;
 	}
 
-	@RequestMapping(method = RequestMethod.GET)
+	@RequestMapping(method = RequestMethod.POST)
 	public String submit(HttpServletRequest request, HttpServletResponse response) {
 
 		String plist = generatePlist(request);

@@ -4,23 +4,23 @@
 <html>
 <head>
 <title>AppConfig Generator</title>
-<link href="../bootstrap/dist/css/bootstrap.css" rel="stylesheet" media="screen">
+<link href="bootstrap/dist/css/bootstrap.css" rel="stylesheet" media="screen">
 <style type="text/css">
 <%@ include file="../bootstrap/dist/css/bootstrap-theme.css" %>
 <%@ include file="../resources/parsley.css" %>
 <%@ include file="style.css"%>
 </style>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<script src="../jquery/dist/jquery.min.js"></script>
-	<script src="../jquery-ui-dist/jquery-ui.min.js"></script>
-	<script src="../bootstrap/dist/js/bootstrap.js"></script>
-	<script src="../parsleyjs/dist/parsley.min.js"></script>
+	<script src="${repository}jquery/dist/jquery.min.js"></script>
+	<script src="${repository}jquery-ui-dist/jquery-ui.min.js"></script>
+	<script src="${repository}bootstrap/dist/js/bootstrap.js"></script>
+	<script src="${repository}parsleyjs/dist/parsley.min.js"></script>
 </head>
 <body>
 	<nav class="navbar navbar-default">
 		<div class="container-fluid">
 			<div class="navbar-header">
-				<a class="navbar-brand" href="/">AppConfig Generator</a>
+				<a class="navbar-brand" href="https://mdm.photosync-app.com/config">AppConfig Generator</a>
 			</div>
 		</div>
 	</nav>

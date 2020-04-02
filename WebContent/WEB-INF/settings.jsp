@@ -20,7 +20,7 @@
 	<nav class="navbar navbar-default">
 	  <div class="container-fluid">
 	    <div class="navbar-header">
-	      <a class="navbar-brand" href="/">AppConfig Generator</a>
+	      <a class="navbar-brand" href="https://mdm.photosync-app.com/config">AppConfig Generator</a>
 	    </div>
 	  </div>
 	</nav>
@@ -39,7 +39,7 @@
 
 		<br>
 	
-		<form role="form" data-parsley-validate action="${repository}submit">
+		<form role="form" method="post" data-parsley-validate action="${repository}submit">
 			<c:forEach var="field" items="${mac.presentation.fieldGroupOrField}">
 				<c:set var="defaultLocale" value="${mac.presentation.defaultLocale}" scope="request"></c:set>
 				<c:choose>

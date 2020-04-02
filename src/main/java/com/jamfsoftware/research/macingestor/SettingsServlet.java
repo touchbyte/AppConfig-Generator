@@ -32,32 +32,15 @@ import com.jamfsoftware.research.macingestor.jaxb.ManagedAppConfiguration;
 import com.jamfsoftware.research.macingestor.jaxb.Presentation;
 
 @Controller
-@RequestMapping("/settings")
+
 public class SettingsServlet {
 
 	@Value("${repository.url}")
 	private String repositoryURL;
-	
-	@RequestMapping(method = RequestMethod.POST)
-	public String prepareSettings(ModelMap model, HttpServletRequest request, HttpServletResponse response, @RequestParam("file") MultipartFile file) {
-		
-		JAXBReader<ManagedAppConfiguration> reader = new JAXBReader<>(ManagedAppConfiguration.class);
-		try {
-			ManagedAppConfiguration mac = reader.read(file.getInputStream());
-			prepareSchemaData(mac, model);
-			request.getSession().setAttribute("mac", mac);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
 
-		return "settings";
-	}
-
-	@RequestMapping(value = "/repository", method = RequestMethod.POST)
-	public String prepareSettingsFromRepository(ModelMap model, HttpServletRequest request, HttpServletResponse response, @RequestParam("file") String specfileURL) {
-
-		SpecfileRepository repository = new SpecfileRepository(repositoryURL);
-		if (repository.validSpecfile(specfileURL)) {
+	@RequestMapping(value="/",method = RequestMethod.GET)
+	public String index(HttpServletRequest request, HttpServletResponse response, ModelMap model, @RequestParam(value = "bundleId", required = false) String bundleId) {
+			String specfileURL = "https://download.photosync-app.com/xml/mdm_specfile.xml";
 
 			JAXBReader<ManagedAppConfiguration> reader = new JAXBReader<>(ManagedAppConfiguration.class);
 			try {
@@ -73,6 +56,47 @@ public class SettingsServlet {
 			} catch(IOException e) {
 				e.printStackTrace();
 			}
+
+		//request.setAttribute("repository", "../");
+		return "settings";
+	}
+
+
+	@RequestMapping(value="/settings", method = RequestMethod.POST)
+	public String prepareSettings(ModelMap model, HttpServletRequest request, HttpServletResponse response, @RequestParam("file") MultipartFile file) {
+		
+		JAXBReader<ManagedAppConfiguration> reader = new JAXBReader<>(ManagedAppConfiguration.class);
+		try {
+			ManagedAppConfiguration mac = reader.read(file.getInputStream());
+			prepareSchemaData(mac, model);
+			request.getSession().setAttribute("mac", mac);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		return "settings";
+	}
+
+	@RequestMapping(value = "/settings/repository", method = RequestMethod.POST)
+	public String prepareSettingsFromRepository(ModelMap model, HttpServletRequest request, HttpServletResponse response, @RequestParam("file") String specfileURL) {
+
+		SpecfileRepository repository = new SpecfileRepository(repositoryURL);
+			if (repository.validSpecfile(specfileURL)) {
+
+				JAXBReader<ManagedAppConfiguration> reader = new JAXBReader<>(ManagedAppConfiguration.class);
+				try {
+					InputStream fileInputStream = new URL(specfileURL).openStream();
+
+					ManagedAppConfiguration mac = reader.read(fileInputStream);
+					prepareSchemaData(mac, model);
+					request.getSession().setAttribute("mac", mac);
+
+					fileInputStream.close();
+
+					request.setAttribute("specfile", mac.getBundleId() + "/" + mac.getVersion());
+				} catch(IOException e) {
+					e.printStackTrace();
+				}
 		}
 
 		request.setAttribute("repository", "../");
