@@ -20,7 +20,7 @@
 	<nav class="navbar navbar-default">
 		<div class="container-fluid">
 			<div class="navbar-header">
-				<a class="navbar-brand" href="https://mdm.photosync-app.com/config">AppConfig Generator</a>
+				<a class="navbar-brand" href="/">AppConfig Generator</a>
 			</div>
 		</div>
 	</nav>
