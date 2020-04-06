@@ -20,8 +20,8 @@ import com.jamfsoftware.research.macingestor.jaxb.ManagedAppConfiguration;
 @RequestMapping("/submit")
 public class SubmitServlet {
 
-	@RequestMapping(value = "/download", method = RequestMethod.POST, produces=MediaType.APPLICATION_OCTET_STREAM_VALUE)
-	public String download(HttpServletRequest request, HttpServletResponse response) {
+	@RequestMapping(value = "/download", params={"plistfile", "!settingsfile"},method = RequestMethod.POST, produces=MediaType.APPLICATION_OCTET_STREAM_VALUE)
+	public String downloadPlist(HttpServletRequest request, HttpServletResponse response) {
 		response.setContentType("application/force-download");
 		response.addHeader("Content-Disposition","attachment; filename=\"photosync_mdm.plist\"");
 		Reader reader = new StringReader(generatePlist(request));
@@ -33,6 +33,21 @@ public class SubmitServlet {
 
 		return null;
 	}
+
+	@RequestMapping(value = "/download", params={"settingsfile", "!plistfile"},method = RequestMethod.POST, produces=MediaType.APPLICATION_OCTET_STREAM_VALUE)
+	public String downloadSettings(HttpServletRequest request, HttpServletResponse response) {
+		response.setContentType("application/force-download");
+		response.addHeader("Content-Disposition","attachment; filename=\"photosync_mdm.photosync\"");
+		Reader reader = new StringReader(generatePlist(request));
+		try {
+			IOUtils.copy(reader, response.getOutputStream());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		return null;
+	}
+
 
 	@RequestMapping(method = RequestMethod.POST)
 	public String submit(HttpServletRequest request, HttpServletResponse response) {

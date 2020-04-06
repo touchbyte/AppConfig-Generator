@@ -80,7 +80,8 @@
 			</c:forEach>
 
 			<div class="btn-group">
-				<button type="submit" class="btn btn-default">Download Plist</button>
+				<button type="submit" class="btn btn-default" name="plistfile">Download Plist File</button>
+				<button type="submit" class="btn btn-default" name="settingsfile">Download Settings File</button>
 				<button type="button" class="btn btn-default" onclick="copyText()">Copy Dictionary</button>
 			</div>
 		</form>
